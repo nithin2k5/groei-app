@@ -36,7 +36,7 @@ export default function AuthScreen() {
       setLoading(false);
       if (isLogin) {
         signIn();
-        router.replace('/(tabs)');
+        router.replace('/dashboard');
       } else {
         router.push({
           pathname: '/otp-verification',

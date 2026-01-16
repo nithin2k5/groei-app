@@ -86,9 +86,11 @@ export default function ProfileSetupScreen() {
     if (loading) return;
     
     setLoading(true);
+    signIn();
+    
     setTimeout(() => {
       setLoading(false);
-      router.replace('/(tabs)');
+      router.replace('/dashboard');
     }, 1500);
   };
 
