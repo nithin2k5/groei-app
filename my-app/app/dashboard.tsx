@@ -147,7 +147,7 @@ export default function DashboardScreen() {
             <Ionicons name="briefcase" size={isSmallScreen ? 22 : 24} color={COLORS.PRIMARY} />
           </View>
           <Text style={styles.statNumber}>{stats.applications}</Text>
-          <Text style={styles.statLabel}>Active Applications</Text>
+          <Text style={styles.statLabel}>Applications</Text>
         </Pressable>
         <View style={styles.statCard}>
           <View style={styles.statIconContainer}>
@@ -931,14 +931,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   statCard: {
-    flex: 1,
+    width: '31%', // Explicit width to ensure equal distribution
     backgroundColor: COLORS.BACKGROUND_LIGHT,
     borderRadius: 16,
     padding: isSmallScreen ? 12 : 16,
+    paddingHorizontal: 4,
     borderWidth: 1,
     borderColor: COLORS.BORDER,
     alignItems: 'center',
-    minWidth: 0,
+    justifyContent: 'center',
+    // minWidth: 0,
     maxWidth: '100%',
     shadowColor: COLORS.PRIMARY,
     shadowOffset: { width: 0, height: 1 },
