@@ -161,7 +161,7 @@ export default function InterviewsScreen() {
               <Ionicons name="calendar-outline" size={64} color={COLORS.TEXT_SECONDARY} />
               <Text style={styles.emptyTitle}>No Interviews</Text>
               <Text style={styles.emptyText}>
-                {activeFilter === 'all' 
+                {activeFilter === 'all'
                   ? 'You don\'t have any interviews scheduled yet'
                   : `No ${activeFilter} interviews found`}
               </Text>
@@ -180,7 +180,7 @@ export default function InterviewsScreen() {
               const meetingLink = interview.meeting_link || interview.meetingLink;
               const meetingId = interview.meeting_id || interview.meetingId;
               const password = interview.password;
-              
+
               return (
                 <View key={interview.id} style={styles.interviewCard}>
                   <View style={styles.cardHeader}>
@@ -232,11 +232,11 @@ export default function InterviewsScreen() {
                     {interview.status === 'scheduled' && (
                       <>
                         {meetingLink && (
-                          <TouchableOpacity 
+                          <TouchableOpacity
                             style={styles.primaryButton}
                             onPress={() => handleJoinInterview({ ...interview, meetingLink, meetingId, password })}
                           >
-                            <Ionicons name="videocam" size={18} color={COLORS.TEXT_PRIMARY} />
+                            <Ionicons name="videocam" size={18} color="#ffffff" />
                             <Text style={styles.primaryButtonText}>Join Interview</Text>
                           </TouchableOpacity>
                         )}
@@ -277,14 +277,14 @@ export default function InterviewsScreen() {
         animationType="fade"
         onRequestClose={() => setShowJoinModal(false)}
       >
-        <Pressable 
+        <Pressable
           style={styles.modalOverlay}
           onPress={() => setShowJoinModal(false)}
         >
           <Pressable style={styles.modalContent} onPress={(e) => e.stopPropagation()}>
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Join Interview</Text>
-              <TouchableOpacity 
+              <TouchableOpacity
                 style={styles.closeButton}
                 onPress={() => setShowJoinModal(false)}
               >
@@ -301,20 +301,20 @@ export default function InterviewsScreen() {
               const meetingLink = selectedInterview.meeting_link || selectedInterview.meetingLink || '';
               const meetingId = selectedInterview.meeting_id || selectedInterview.meetingId || '';
               const password = selectedInterview.password || '';
-              
+
               return (
                 <>
                   <View style={styles.interviewInfo}>
                     <Text style={styles.modalJobTitle}>{jobTitle}</Text>
                     <Text style={styles.modalCompany}>{company}</Text>
-                    
+
                     <View style={styles.modalDetailRow}>
                       <Ionicons name="calendar-outline" size={18} color={COLORS.TEXT_SECONDARY} />
                       <Text style={styles.modalDetailText}>
                         {date} at {time}
                       </Text>
                     </View>
-                    
+
                     <View style={styles.modalDetailRow}>
                       <Ionicons name="person-outline" size={18} color={COLORS.TEXT_SECONDARY} />
                       <Text style={styles.modalDetailText}>
@@ -326,7 +326,7 @@ export default function InterviewsScreen() {
                   {meetingLink && (
                     <View style={styles.meetingSection}>
                       <Text style={styles.sectionTitle}>Meeting Information</Text>
-                      
+
                       <View style={styles.inputGroup}>
                         <Text style={styles.inputLabel}>Meeting Link</Text>
                         <View style={styles.inputContainer}>
@@ -609,7 +609,7 @@ const styles = StyleSheet.create({
   primaryButtonText: {
     fontSize: 14,
     fontWeight: '700',
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
   },
   secondaryButton: {
     flex: 1,
@@ -791,7 +791,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   retryButtonText: {
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
     fontSize: 16,
     fontWeight: '700',
   },

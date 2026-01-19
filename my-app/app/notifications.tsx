@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   badgeText: {
     fontSize: 12,
     fontWeight: '700',
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
   },
   headerSpacer: {
     width: 40,

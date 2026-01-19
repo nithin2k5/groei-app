@@ -58,13 +58,13 @@ export default function ChatbotScreen() {
 
   const getBotResponse = (userMessage: string): string => {
     const lowerMessage = userMessage.toLowerCase().trim();
-    
+
     for (const [key, response] of Object.entries(botResponses)) {
       if (lowerMessage.includes(key.toLowerCase())) {
         return response;
       }
     }
-    
+
     if (lowerMessage.includes('apply') || lowerMessage.includes('application')) {
       return botResponses['how do i apply for a job?'];
     }
@@ -77,7 +77,7 @@ export default function ChatbotScreen() {
     if (lowerMessage.includes('saved') || lowerMessage.includes('bookmark')) {
       return botResponses['view saved jobs'];
     }
-    
+
     return botResponses['default'];
   };
 
@@ -244,7 +244,7 @@ export default function ChatbotScreen() {
               <Ionicons
                 name="send"
                 size={20}
-                color={inputText.trim() ? COLORS.TEXT_PRIMARY : COLORS.TEXT_SECONDARY}
+                color={inputText.trim() ? '#ffffff' : COLORS.TEXT_SECONDARY}
               />
             </TouchableOpacity>
           </View>

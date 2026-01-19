@@ -1,14 +1,16 @@
 export const COLORS = {
-  PRIMARY: '#6366f1',
-  SECONDARY: '#1e1e2e',
+  PRIMARY: '#041F2B',
+  SECONDARY: '#F3F4F6',
   SUCCESS: '#10b981',
   ERROR: '#ef4444',
   WARNING: '#f59e0b',
-  INFO: '#6366f1',
-  TEXT_PRIMARY: '#e8e8f0',
-  TEXT_SECONDARY: '#9ca3af',
-  TEXT_MUTED: '#9ca3af',
-  BORDER: '#2a2a3a',
-  BACKGROUND: '#0a0a0f',
-  BACKGROUND_LIGHT: '#151520',
+  INFO: '#041F2B',
+  TEXT_PRIMARY: '#041F2B',
+  // Using #041F2B with 70% opacity for secondary text
+  TEXT_SECONDARY: 'rgba(4, 31, 43, 0.7)',
+  // Using #041F2B with 50% opacity for muted text
+  TEXT_MUTED: 'rgba(4, 31, 43, 0.5)',
+  BORDER: '#E2E8F0',
+  BACKGROUND: '#FFFFFF',
+  BACKGROUND_LIGHT: '#F9FAFB',
 } as const;

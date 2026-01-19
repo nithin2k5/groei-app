@@ -38,18 +38,18 @@ export default function AuthScreen() {
 
   const handleSubmit = async () => {
     if (loading) return;
-    
+
     if (!email || !password || (!isLogin && !name)) {
       Alert.alert('Error', 'Please fill in all fields');
       return;
     }
 
     setLoading(true);
-    
+
     try {
       if (isLogin) {
         const response = await authApi.login(email, password);
-        
+
         if (response.token) {
           await AsyncStorage.setItem('authToken', response.token);
           signIn();
@@ -61,11 +61,11 @@ export default function AuthScreen() {
           email,
           password,
         });
-        
-        const alertMessage = response.warning 
+
+        const alertMessage = response.warning
           ? `${response.message}\n\n${response.warning}`
           : response.message || 'Please check your email for the 6-digit verification code.';
-        
+
         Alert.alert(
           'Verification Required',
           alertMessage,
@@ -104,195 +104,195 @@ export default function AuthScreen() {
           keyboardDismissMode="on-drag"
         >
           <View style={styles.content}>
-        <View style={[styles.header, isSmallScreen && styles.headerSmall]}>
-          <View style={[styles.logoContainer, isSmallScreen && styles.logoContainerSmall]}>
-            <Ionicons name="briefcase" size={isSmallScreen ? 24 : 28} color={COLORS.PRIMARY} />
-          </View>
-          <Text style={[styles.logoText, isSmallScreen && styles.logoTextSmall]}>GROEI</Text>
-        </View>
-
-        <View style={[styles.authContainer, isSmallScreen && styles.authContainerSmall]}>
-          <View style={styles.toggleContainer}>
-            <Pressable
-              style={[styles.toggleButton, isLogin && styles.toggleButtonActive]}
-              onPress={() => setIsLogin(true)}
-              disabled={loading}
-            >
-              <Text style={[styles.toggleText, isLogin && styles.toggleTextActive, isSmallScreen && styles.toggleTextSmall]}>
-                LOGIN
-              </Text>
-            </Pressable>
-            <Pressable
-              style={[styles.toggleButton, !isLogin && styles.toggleButtonActive]}
-              onPress={() => setIsLogin(false)}
-              disabled={loading}
-            >
-              <Text style={[styles.toggleText, !isLogin && styles.toggleTextActive, isSmallScreen && styles.toggleTextSmall]}>
-                SIGN UP
-              </Text>
-            </Pressable>
-          </View>
-
-          <View style={styles.formContainer}>
-            <Text style={[styles.title, isSmallScreen && styles.titleSmall]}>
-              {isLogin ? 'WELCOME BACK' : 'CREATE ACCOUNT'}
-            </Text>
-            <Text style={[styles.subtitle, isSmallScreen && styles.subtitleSmall]}>
-              {isLogin
-                ? 'Sign in to continue to your account'
-                : 'Join thousands of professionals using GROEI'}
-            </Text>
-
-            {!isLogin && (
-              <View
-                style={[styles.inputContainer, isSmallScreen && styles.inputContainerSmall]}
-                onLayout={(e) => {
-                  inputLayouts.current['name'] = e.nativeEvent.layout.y;
-                }}
-              >
-                <Ionicons name="person-outline" size={isSmallScreen ? 18 : 20} color={COLORS.TEXT_SECONDARY} style={styles.inputIcon} />
-                <TextInput
-                  ref={nameInputRef}
-                  style={[styles.input, isSmallScreen && styles.inputSmall]}
-                  placeholder="Full Name"
-                  placeholderTextColor="#a0aec0"
-                  value={name}
-                  onChangeText={setName}
-                  autoCapitalize="words"
-                  editable={!loading}
-                  onFocus={() => {
-                    setTimeout(() => {
-                      const y = inputLayouts.current['name'];
-                      if (y !== undefined && scrollViewRef.current) {
-                        scrollViewRef.current.scrollTo({ y: Math.max(0, y - 150), animated: true });
-                      }
-                    }, 100);
-                  }}
-                />
+            <View style={[styles.header, isSmallScreen && styles.headerSmall]}>
+              <View style={[styles.logoContainer, isSmallScreen && styles.logoContainerSmall]}>
+                <Ionicons name="briefcase" size={isSmallScreen ? 24 : 28} color={COLORS.PRIMARY} />
               </View>
-            )}
-
-            <View
-              style={[styles.inputContainer, isSmallScreen && styles.inputContainerSmall]}
-              onLayout={(e) => {
-                inputLayouts.current['email'] = e.nativeEvent.layout.y;
-              }}
-            >
-              <Ionicons name="mail-outline" size={isSmallScreen ? 18 : 20} color={COLORS.TEXT_SECONDARY} style={styles.inputIcon} />
-              <TextInput
-                ref={emailInputRef}
-                style={[styles.input, isSmallScreen && styles.inputSmall]}
-                placeholder="Email Address"
-                placeholderTextColor="#a0aec0"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize="none"
-                autoCorrect={false}
-                editable={!loading}
-                onFocus={() => {
-                  setTimeout(() => {
-                    const y = inputLayouts.current['email'];
-                    if (y !== undefined && scrollViewRef.current) {
-                      scrollViewRef.current.scrollTo({ y: Math.max(0, y - 150), animated: true });
-                    }
-                  }, 100);
-                }}
-              />
+              <Text style={[styles.logoText, isSmallScreen && styles.logoTextSmall]}>GROEI</Text>
             </View>
 
-            <View
-              style={[styles.inputContainer, isSmallScreen && styles.inputContainerSmall]}
-              onLayout={(e) => {
-                inputLayouts.current['password'] = e.nativeEvent.layout.y;
-              }}
-            >
-              <Ionicons name="lock-closed-outline" size={isSmallScreen ? 18 : 20} color={COLORS.TEXT_SECONDARY} style={styles.inputIcon} />
-              <TextInput
-                ref={passwordInputRef}
-                style={[styles.input, isSmallScreen && styles.inputSmall]}
-                placeholder="Password"
-                placeholderTextColor="#a0aec0"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry={!showPassword}
-                autoCapitalize="none"
-                editable={!loading}
-                onFocus={() => {
-                  setTimeout(() => {
-                    const y = inputLayouts.current['password'];
-                    if (y !== undefined && scrollViewRef.current) {
-                      scrollViewRef.current.scrollTo({ y: Math.max(0, y - 150), animated: true });
-                    }
-                  }, 100);
-                }}
-              />
-              <TouchableOpacity
-                onPress={() => setShowPassword(!showPassword)}
-                style={styles.eyeIcon}
-                disabled={loading}
-              >
-                <Ionicons
-                  name={showPassword ? 'eye-outline' : 'eye-off-outline'}
-                  size={isSmallScreen ? 18 : 20}
-                  color={COLORS.TEXT_SECONDARY}
-                />
-              </TouchableOpacity>
-            </View>
-
-            {isLogin && (
-              <TouchableOpacity 
-                style={styles.forgotPassword} 
-                disabled={loading}
-                onPress={() => router.push('/(auth)/forgot-password')}
-              >
-                <Text style={[styles.forgotPasswordText, isSmallScreen && styles.forgotPasswordTextSmall]}>FORGOT PASSWORD?</Text>
-              </TouchableOpacity>
-            )}
-
-            <Pressable
-              style={[styles.submitButton, loading && styles.submitButtonDisabled, isSmallScreen && styles.submitButtonSmall]}
-              onPress={handleSubmit}
-              disabled={loading}
-            >
-              {loading ? (
-                <ActivityIndicator color={COLORS.TEXT_PRIMARY} size="small" />
-              ) : (
-                <>
-                  <Text style={[styles.submitButtonText, isSmallScreen && styles.submitButtonTextSmall]}>
-                    {isLogin ? 'LOGIN' : 'CREATE ACCOUNT'}
+            <View style={[styles.authContainer, isSmallScreen && styles.authContainerSmall]}>
+              <View style={styles.toggleContainer}>
+                <Pressable
+                  style={[styles.toggleButton, isLogin && styles.toggleButtonActive]}
+                  onPress={() => setIsLogin(true)}
+                  disabled={loading}
+                >
+                  <Text style={[styles.toggleText, isLogin && styles.toggleTextActive, isSmallScreen && styles.toggleTextSmall]}>
+                    LOGIN
                   </Text>
-                  <Ionicons name="arrow-forward" size={isSmallScreen ? 18 : 20} color={COLORS.TEXT_PRIMARY} />
-                </>
-              )}
-            </Pressable>
+                </Pressable>
+                <Pressable
+                  style={[styles.toggleButton, !isLogin && styles.toggleButtonActive]}
+                  onPress={() => setIsLogin(false)}
+                  disabled={loading}
+                >
+                  <Text style={[styles.toggleText, !isLogin && styles.toggleTextActive, isSmallScreen && styles.toggleTextSmall]}>
+                    SIGN UP
+                  </Text>
+                </Pressable>
+              </View>
 
-            <View style={styles.divider}>
-              <View style={styles.dividerLine} />
-              <Text style={[styles.dividerText, isSmallScreen && styles.dividerTextSmall]}>OR</Text>
-              <View style={styles.dividerLine} />
-            </View>
-
-            <View style={styles.socialContainer}>
-              <Pressable style={[styles.socialButton, loading && styles.socialButtonDisabled, isSmallScreen && styles.socialButtonSmall]} disabled={loading}>
-                <Ionicons name="logo-google" size={isSmallScreen ? 20 : 24} color={COLORS.PRIMARY} />
-                <Text style={[styles.socialButtonText, isSmallScreen && styles.socialButtonTextSmall]}>CONTINUE WITH GOOGLE</Text>
-              </Pressable>
-            </View>
-
-            <View style={styles.footer}>
-              <Text style={[styles.footerText, isSmallScreen && styles.footerTextSmall]}>
-                {isLogin ? "DON'T HAVE AN ACCOUNT? " : 'ALREADY HAVE AN ACCOUNT? '}
-              </Text>
-              <TouchableOpacity onPress={() => setIsLogin(!isLogin)} disabled={loading}>
-                <Text style={[styles.footerLink, isSmallScreen && styles.footerLinkSmall]}>
-                  {isLogin ? 'SIGN UP' : 'LOGIN'}
+              <View style={styles.formContainer}>
+                <Text style={[styles.title, isSmallScreen && styles.titleSmall]}>
+                  {isLogin ? 'WELCOME BACK' : 'CREATE ACCOUNT'}
                 </Text>
-              </TouchableOpacity>
+                <Text style={[styles.subtitle, isSmallScreen && styles.subtitleSmall]}>
+                  {isLogin
+                    ? 'Sign in to continue to your account'
+                    : 'Join thousands of professionals using GROEI'}
+                </Text>
+
+                {!isLogin && (
+                  <View
+                    style={[styles.inputContainer, isSmallScreen && styles.inputContainerSmall]}
+                    onLayout={(e) => {
+                      inputLayouts.current['name'] = e.nativeEvent.layout.y;
+                    }}
+                  >
+                    <Ionicons name="person-outline" size={isSmallScreen ? 18 : 20} color={COLORS.TEXT_SECONDARY} style={styles.inputIcon} />
+                    <TextInput
+                      ref={nameInputRef}
+                      style={[styles.input, isSmallScreen && styles.inputSmall]}
+                      placeholder="Full Name"
+                      placeholderTextColor="#a0aec0"
+                      value={name}
+                      onChangeText={setName}
+                      autoCapitalize="words"
+                      editable={!loading}
+                      onFocus={() => {
+                        setTimeout(() => {
+                          const y = inputLayouts.current['name'];
+                          if (y !== undefined && scrollViewRef.current) {
+                            scrollViewRef.current.scrollTo({ y: Math.max(0, y - 150), animated: true });
+                          }
+                        }, 100);
+                      }}
+                    />
+                  </View>
+                )}
+
+                <View
+                  style={[styles.inputContainer, isSmallScreen && styles.inputContainerSmall]}
+                  onLayout={(e) => {
+                    inputLayouts.current['email'] = e.nativeEvent.layout.y;
+                  }}
+                >
+                  <Ionicons name="mail-outline" size={isSmallScreen ? 18 : 20} color={COLORS.TEXT_SECONDARY} style={styles.inputIcon} />
+                  <TextInput
+                    ref={emailInputRef}
+                    style={[styles.input, isSmallScreen && styles.inputSmall]}
+                    placeholder="Email Address"
+                    placeholderTextColor="#a0aec0"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    editable={!loading}
+                    onFocus={() => {
+                      setTimeout(() => {
+                        const y = inputLayouts.current['email'];
+                        if (y !== undefined && scrollViewRef.current) {
+                          scrollViewRef.current.scrollTo({ y: Math.max(0, y - 150), animated: true });
+                        }
+                      }, 100);
+                    }}
+                  />
+                </View>
+
+                <View
+                  style={[styles.inputContainer, isSmallScreen && styles.inputContainerSmall]}
+                  onLayout={(e) => {
+                    inputLayouts.current['password'] = e.nativeEvent.layout.y;
+                  }}
+                >
+                  <Ionicons name="lock-closed-outline" size={isSmallScreen ? 18 : 20} color={COLORS.TEXT_SECONDARY} style={styles.inputIcon} />
+                  <TextInput
+                    ref={passwordInputRef}
+                    style={[styles.input, isSmallScreen && styles.inputSmall]}
+                    placeholder="Password"
+                    placeholderTextColor="#a0aec0"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry={!showPassword}
+                    autoCapitalize="none"
+                    editable={!loading}
+                    onFocus={() => {
+                      setTimeout(() => {
+                        const y = inputLayouts.current['password'];
+                        if (y !== undefined && scrollViewRef.current) {
+                          scrollViewRef.current.scrollTo({ y: Math.max(0, y - 150), animated: true });
+                        }
+                      }, 100);
+                    }}
+                  />
+                  <TouchableOpacity
+                    onPress={() => setShowPassword(!showPassword)}
+                    style={styles.eyeIcon}
+                    disabled={loading}
+                  >
+                    <Ionicons
+                      name={showPassword ? 'eye-outline' : 'eye-off-outline'}
+                      size={isSmallScreen ? 18 : 20}
+                      color={COLORS.TEXT_SECONDARY}
+                    />
+                  </TouchableOpacity>
+                </View>
+
+                {isLogin && (
+                  <TouchableOpacity
+                    style={styles.forgotPassword}
+                    disabled={loading}
+                    onPress={() => router.push('/(auth)/forgot-password')}
+                  >
+                    <Text style={[styles.forgotPasswordText, isSmallScreen && styles.forgotPasswordTextSmall]}>FORGOT PASSWORD?</Text>
+                  </TouchableOpacity>
+                )}
+
+                <Pressable
+                  style={[styles.submitButton, loading && styles.submitButtonDisabled, isSmallScreen && styles.submitButtonSmall]}
+                  onPress={handleSubmit}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <ActivityIndicator color={COLORS.TEXT_PRIMARY} size="small" />
+                  ) : (
+                    <>
+                      <Text style={[styles.submitButtonText, isSmallScreen && styles.submitButtonTextSmall]}>
+                        {isLogin ? 'LOGIN' : 'CREATE ACCOUNT'}
+                      </Text>
+                      <Ionicons name="arrow-forward" size={isSmallScreen ? 18 : 20} color="#ffffff" />
+                    </>
+                  )}
+                </Pressable>
+
+                <View style={styles.divider}>
+                  <View style={styles.dividerLine} />
+                  <Text style={[styles.dividerText, isSmallScreen && styles.dividerTextSmall]}>OR</Text>
+                  <View style={styles.dividerLine} />
+                </View>
+
+                <View style={styles.socialContainer}>
+                  <Pressable style={[styles.socialButton, loading && styles.socialButtonDisabled, isSmallScreen && styles.socialButtonSmall]} disabled={loading}>
+                    <Ionicons name="logo-google" size={isSmallScreen ? 20 : 24} color={COLORS.PRIMARY} />
+                    <Text style={[styles.socialButtonText, isSmallScreen && styles.socialButtonTextSmall]}>CONTINUE WITH GOOGLE</Text>
+                  </Pressable>
+                </View>
+
+                <View style={styles.footer}>
+                  <Text style={[styles.footerText, isSmallScreen && styles.footerTextSmall]}>
+                    {isLogin ? "DON'T HAVE AN ACCOUNT? " : 'ALREADY HAVE AN ACCOUNT? '}
+                  </Text>
+                  <TouchableOpacity onPress={() => setIsLogin(!isLogin)} disabled={loading}>
+                    <Text style={[styles.footerLink, isSmallScreen && styles.footerLinkSmall]}>
+                      {isLogin ? 'SIGN UP' : 'LOGIN'}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
           </View>
-        </View>
-        </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -502,7 +502,7 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   submitButtonText: {
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
     fontSize: 17,
     fontWeight: '800',
     marginRight: 8,

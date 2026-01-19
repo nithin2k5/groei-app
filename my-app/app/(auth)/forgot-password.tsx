@@ -23,7 +23,7 @@ export default function ForgotPasswordScreen() {
       const response = await authApi.forgotPassword(email);
       setEmailSent(true);
       Alert.alert(
-        'Check Your Email', 
+        'Check Your Email',
         response.message || 'If an account with that email exists, a password reset code has been sent. Please check your inbox.',
         [
           {
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   submitButtonText: {
     fontSize: 16,
     fontWeight: '700',
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
   },
   resendButton: {
     backgroundColor: COLORS.SECONDARY,

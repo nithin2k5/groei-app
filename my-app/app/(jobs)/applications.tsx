@@ -250,7 +250,7 @@ export default function ApplicationsScreen() {
             const appliedDate = application.applied_date || application.appliedDate;
             const match = application.match || 0;
             const icon = application.icon || getJobIcon(jobTitle);
-            
+
             return (
               <Pressable
                 key={application.id}
@@ -548,7 +548,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   retryButtonText: {
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
     fontSize: 16,
     fontWeight: '700',
   },

@@ -51,7 +51,7 @@ export default function JobsScreen() {
       if (filter === 'remote') filters.location = 'Remote';
       if (filter === 'hybrid') filters.location = 'Hybrid';
       if (filter === 'onsite') filters.location = 'On-site';
-      
+
       const response = await jobsApi.getAll(filters);
       setJobs(Array.isArray(response) ? response : (response.data || response.jobs || []));
     } catch (err: any) {
@@ -66,7 +66,7 @@ export default function JobsScreen() {
   const loadSavedJobs = async () => {
     try {
       const response = await savedJobsApi.getAll();
-      const savedJobIds = Array.isArray(response) 
+      const savedJobIds = Array.isArray(response)
         ? response.map((item: any) => item.job_id || item.id)
         : (response.data || []).map((item: any) => item.job_id || item.id);
       setSavedJobs(savedJobIds);
@@ -78,7 +78,7 @@ export default function JobsScreen() {
   const handleSaveJob = async (jobId: number) => {
     try {
       const isSaved = savedJobs.includes(jobId);
-      
+
       if (isSaved) {
         await savedJobsApi.delete(jobId);
         setSavedJobs(savedJobs.filter(id => id !== jobId));
@@ -171,73 +171,73 @@ export default function JobsScreen() {
               </View>
             ) : (
               jobs.map((job) => (
-          <TouchableOpacity
-            key={job.id}
-            style={styles.jobCard}
-            onPress={() => {
-              router.push({
-                pathname: '/(jobs)/job-detail' as any,
-                  params: {
-                    id: job.id.toString(),
-                    title: job.title,
-                    company: job.company,
-                    location: job.location,
-                    salary: job.salary || '',
-                    match: job.match?.toString() || '0',
-                    type: job.type || '',
-                    posted: job.posted || '',
-                    icon: job.icon || getJobIcon(job.title),
-                  },
-              });
-            }}
-          >
-                <View style={styles.jobHeader}>
-                  <View style={styles.jobIconContainer}>
-                    <Ionicons name={getJobIcon(job.title) as any} size={24} color={COLORS.PRIMARY} />
-                  </View>
-                  <View style={styles.jobInfo}>
-                    <Text style={styles.jobTitle}>{job.title}</Text>
-                    <Text style={styles.jobCompany}>{job.company} • {job.location}</Text>
-                  </View>
-                  <TouchableOpacity 
-                    onPress={(e) => {
-                      e.stopPropagation();
-                      handleSaveJob(job.id);
-                    }}
-                    style={styles.bookmarkButton}
-                  >
-                    <Ionicons 
-                      name={savedJobs.includes(job.id) ? 'bookmark' : 'bookmark-outline'} 
-                      size={24} 
-                      color={savedJobs.includes(job.id) ? COLORS.PRIMARY : COLORS.TEXT_SECONDARY} 
-                    />
-                  </TouchableOpacity>
-                </View>
-                {job.match && (
-                  <View style={styles.matchBadgeContainer}>
-                    <View style={styles.matchBadge}>
-                      <Text style={styles.matchText}>{job.match}% Match</Text>
+                <TouchableOpacity
+                  key={job.id}
+                  style={styles.jobCard}
+                  onPress={() => {
+                    router.push({
+                      pathname: '/(jobs)/job-detail' as any,
+                      params: {
+                        id: job.id.toString(),
+                        title: job.title,
+                        company: job.company,
+                        location: job.location,
+                        salary: job.salary || '',
+                        match: job.match?.toString() || '0',
+                        type: job.type || '',
+                        posted: job.posted || '',
+                        icon: job.icon || getJobIcon(job.title),
+                      },
+                    });
+                  }}
+                >
+                  <View style={styles.jobHeader}>
+                    <View style={styles.jobIconContainer}>
+                      <Ionicons name={getJobIcon(job.title) as any} size={24} color={COLORS.PRIMARY} />
                     </View>
+                    <View style={styles.jobInfo}>
+                      <Text style={styles.jobTitle}>{job.title}</Text>
+                      <Text style={styles.jobCompany}>{job.company} • {job.location}</Text>
+                    </View>
+                    <TouchableOpacity
+                      onPress={(e) => {
+                        e.stopPropagation();
+                        handleSaveJob(job.id);
+                      }}
+                      style={styles.bookmarkButton}
+                    >
+                      <Ionicons
+                        name={savedJobs.includes(job.id) ? 'bookmark' : 'bookmark-outline'}
+                        size={24}
+                        color={savedJobs.includes(job.id) ? COLORS.PRIMARY : COLORS.TEXT_SECONDARY}
+                      />
+                    </TouchableOpacity>
                   </View>
-                )}
-                <View style={styles.jobDetails}>
-                  <View style={styles.detailItem}>
-                    <Ionicons name="cash-outline" size={14} color={COLORS.TEXT_SECONDARY} />
-                    <Text style={styles.detailText}>{formatSalary(job.salary)}</Text>
-                  </View>
-                  {job.type && (
-                    <View style={styles.detailItem}>
-                      <Ionicons name="time-outline" size={14} color={COLORS.TEXT_SECONDARY} />
-                      <Text style={styles.detailText}>{job.type}</Text>
+                  {job.match && (
+                    <View style={styles.matchBadgeContainer}>
+                      <View style={styles.matchBadge}>
+                        <Text style={styles.matchText}>{job.match}% Match</Text>
+                      </View>
                     </View>
                   )}
-                  <View style={styles.detailItem}>
-                    <Ionicons name="calendar-outline" size={14} color={COLORS.TEXT_SECONDARY} />
-                    <Text style={styles.detailText}>{formatDate(job.posted)}</Text>
+                  <View style={styles.jobDetails}>
+                    <View style={styles.detailItem}>
+                      <Ionicons name="cash-outline" size={14} color={COLORS.TEXT_SECONDARY} />
+                      <Text style={styles.detailText}>{formatSalary(job.salary)}</Text>
+                    </View>
+                    {job.type && (
+                      <View style={styles.detailItem}>
+                        <Ionicons name="time-outline" size={14} color={COLORS.TEXT_SECONDARY} />
+                        <Text style={styles.detailText}>{job.type}</Text>
+                      </View>
+                    )}
+                    <View style={styles.detailItem}>
+                      <Ionicons name="calendar-outline" size={14} color={COLORS.TEXT_SECONDARY} />
+                      <Text style={styles.detailText}>{formatDate(job.posted)}</Text>
+                    </View>
                   </View>
-                </View>
-              </TouchableOpacity>
-            ))
+                </TouchableOpacity>
+              ))
             )}
           </>
         )}
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
     color: COLORS.TEXT_SECONDARY,
   },
   filterChipTextActive: {
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
   },
   scrollView: {
     flex: 1,
@@ -452,7 +452,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   retryButtonText: {
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
     fontSize: 16,
     fontWeight: '700',
   },

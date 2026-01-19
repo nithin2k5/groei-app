@@ -34,7 +34,7 @@ export default function OTPVerificationScreen() {
       }
       return;
     }
-    
+
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
@@ -69,7 +69,7 @@ export default function OTPVerificationScreen() {
 
   const handleVerify = async () => {
     if (loading) return;
-    
+
     const otpCode = otp.join('');
     if (otpCode.length !== 6) {
       Alert.alert('Error', 'Please enter the complete 6-digit code');
@@ -149,98 +149,98 @@ export default function OTPVerificationScreen() {
           keyboardDismissMode="on-drag"
         >
           <View style={styles.content}>
-        <View style={[styles.header, isSmallScreen && styles.headerSmall]}>
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => {
-              if (!loading) {
-                router.back();
-              }
-            }}
-            disabled={loading}
-          >
-            <Ionicons name="arrow-back" size={24} color={loading ? COLORS.TEXT_SECONDARY : COLORS.PRIMARY} />
-          </TouchableOpacity>
-          <View style={[styles.logoContainer, isSmallScreen && styles.logoContainerSmall]}>
-            <Ionicons name="mail" size={isSmallScreen ? 24 : 28} color={COLORS.PRIMARY} />
-          </View>
-          <Text style={[styles.logoText, isSmallScreen && styles.logoTextSmall]}>GROEI</Text>
-        </View>
-
-        <View style={[styles.authContainer, isSmallScreen && styles.authContainerSmall]}>
-          <View style={styles.formContainer}>
-            <Text style={[styles.title, isSmallScreen && styles.titleSmall]}>
-              VERIFY YOUR EMAIL
-            </Text>
-            <Text style={[styles.subtitle, isSmallScreen && styles.subtitleSmall]}>
-              We've sent a 6-digit code to{'\n'}
-              <Text style={styles.emailText}>{email}</Text>
-            </Text>
-
-            <View style={styles.otpContainer}>
-              {otp.map((digit, index) => (
-                <TextInput
-                  key={index}
-                  ref={(ref) => {
-                    inputRefs.current[index] = ref;
-                  }}
-                  style={[
-                    styles.otpInput,
-                    isSmallScreen && styles.otpInputSmall,
-                    digit && styles.otpInputFilled,
-                  ]}
-                  value={digit}
-                  onChangeText={(value) => handleOtpChange(value, index)}
-                  onKeyPress={(e) => handleKeyPress(e, index)}
-                  keyboardType="number-pad"
-                  maxLength={1}
-                  editable={!loading}
-                  selectTextOnFocus
-                />
-              ))}
+            <View style={[styles.header, isSmallScreen && styles.headerSmall]}>
+              <TouchableOpacity
+                style={styles.backButton}
+                onPress={() => {
+                  if (!loading) {
+                    router.back();
+                  }
+                }}
+                disabled={loading}
+              >
+                <Ionicons name="arrow-back" size={24} color={loading ? COLORS.TEXT_SECONDARY : COLORS.PRIMARY} />
+              </TouchableOpacity>
+              <View style={[styles.logoContainer, isSmallScreen && styles.logoContainerSmall]}>
+                <Ionicons name="mail" size={isSmallScreen ? 24 : 28} color={COLORS.PRIMARY} />
+              </View>
+              <Text style={[styles.logoText, isSmallScreen && styles.logoTextSmall]}>GROEI</Text>
             </View>
 
-            <Pressable
-              style={[
-                styles.submitButton,
-                loading && styles.submitButtonDisabled,
-                isSmallScreen && styles.submitButtonSmall,
-                otp.join('').length !== 6 && styles.submitButtonDisabled,
-              ]}
-              onPress={handleVerify}
-              disabled={loading || otp.join('').length !== 6}
-            >
-              {loading ? (
-                <ActivityIndicator color={COLORS.TEXT_PRIMARY} size="small" />
-              ) : (
-                <>
-                  <Text style={[styles.submitButtonText, isSmallScreen && styles.submitButtonTextSmall]}>
-                    VERIFY OTP
-                  </Text>
-                  <Ionicons name="checkmark-circle" size={isSmallScreen ? 18 : 20} color={COLORS.TEXT_PRIMARY} />
-                </>
-              )}
-            </Pressable>
-
-            <View style={styles.resendContainer}>
-              <Text style={[styles.resendText, isSmallScreen && styles.resendTextSmall]}>
-                Didn't receive the code?
-              </Text>
-              {canResend ? (
-                <TouchableOpacity onPress={handleResend} disabled={loading}>
-                  <Text style={[styles.resendLink, isSmallScreen && styles.resendLinkSmall]}>
-                    RESEND OTP
-                  </Text>
-                </TouchableOpacity>
-              ) : (
-                <Text style={[styles.timerText, isSmallScreen && styles.timerTextSmall]}>
-                  Resend in {timer}s
+            <View style={[styles.authContainer, isSmallScreen && styles.authContainerSmall]}>
+              <View style={styles.formContainer}>
+                <Text style={[styles.title, isSmallScreen && styles.titleSmall]}>
+                  VERIFY YOUR EMAIL
                 </Text>
-              )}
+                <Text style={[styles.subtitle, isSmallScreen && styles.subtitleSmall]}>
+                  We've sent a 6-digit code to{'\n'}
+                  <Text style={styles.emailText}>{email}</Text>
+                </Text>
+
+                <View style={styles.otpContainer}>
+                  {otp.map((digit, index) => (
+                    <TextInput
+                      key={index}
+                      ref={(ref) => {
+                        inputRefs.current[index] = ref;
+                      }}
+                      style={[
+                        styles.otpInput,
+                        isSmallScreen && styles.otpInputSmall,
+                        digit && styles.otpInputFilled,
+                      ]}
+                      value={digit}
+                      onChangeText={(value) => handleOtpChange(value, index)}
+                      onKeyPress={(e) => handleKeyPress(e, index)}
+                      keyboardType="number-pad"
+                      maxLength={1}
+                      editable={!loading}
+                      selectTextOnFocus
+                    />
+                  ))}
+                </View>
+
+                <Pressable
+                  style={[
+                    styles.submitButton,
+                    loading && styles.submitButtonDisabled,
+                    isSmallScreen && styles.submitButtonSmall,
+                    otp.join('').length !== 6 && styles.submitButtonDisabled,
+                  ]}
+                  onPress={handleVerify}
+                  disabled={loading || otp.join('').length !== 6}
+                >
+                  {loading ? (
+                    <ActivityIndicator color={COLORS.TEXT_PRIMARY} size="small" />
+                  ) : (
+                    <>
+                      <Text style={[styles.submitButtonText, isSmallScreen && styles.submitButtonTextSmall]}>
+                        VERIFY OTP
+                      </Text>
+                      <Ionicons name="checkmark-circle" size={isSmallScreen ? 18 : 20} color="#ffffff" />
+                    </>
+                  )}
+                </Pressable>
+
+                <View style={styles.resendContainer}>
+                  <Text style={[styles.resendText, isSmallScreen && styles.resendTextSmall]}>
+                    Didn't receive the code?
+                  </Text>
+                  {canResend ? (
+                    <TouchableOpacity onPress={handleResend} disabled={loading}>
+                      <Text style={[styles.resendLink, isSmallScreen && styles.resendLinkSmall]}>
+                        RESEND OTP
+                      </Text>
+                    </TouchableOpacity>
+                  ) : (
+                    <Text style={[styles.timerText, isSmallScreen && styles.timerTextSmall]}>
+                      Resend in {timer}s
+                    </Text>
+                  )}
+                </View>
+              </View>
             </View>
           </View>
-        </View>
-        </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -400,7 +400,7 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   submitButtonText: {
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
     fontSize: 17,
     fontWeight: '800',
     marginRight: 8,

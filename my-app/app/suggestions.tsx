@@ -48,7 +48,7 @@ export default function SuggestionsScreen() {
       setError(null);
       const filters: any = { suggested: true };
       if (searchQuery) filters.search = searchQuery;
-      
+
       const response = await jobsApi.getAll(filters);
       const jobs = Array.isArray(response) ? response : (response.data || response.suggestions || []);
       setSuggestedJobs(jobs);
@@ -64,7 +64,7 @@ export default function SuggestionsScreen() {
   const loadSavedJobs = async () => {
     try {
       const response = await savedJobsApi.getAll();
-      const savedJobIds = Array.isArray(response) 
+      const savedJobIds = Array.isArray(response)
         ? response.map((item: any) => item.job_id || item.id)
         : (response.data || []).map((item: any) => item.job_id || item.id);
       setSavedJobs(savedJobIds);
@@ -76,7 +76,7 @@ export default function SuggestionsScreen() {
   const handleSaveJob = async (jobId: number) => {
     try {
       const isSaved = savedJobs.includes(jobId);
-      
+
       if (isSaved) {
         await savedJobsApi.delete(jobId);
         setSavedJobs(savedJobs.filter(id => id !== jobId));
@@ -175,91 +175,91 @@ export default function SuggestionsScreen() {
               </View>
             ) : (
               filteredJobs.map((job) => (
-            <TouchableOpacity
-              key={job.id}
-              style={styles.jobCard}
-              onPress={() => {
-                router.push({
-                  pathname: '/(jobs)/job-detail' as any,
-                  params: {
-                    id: job.id.toString(),
-                    title: job.title,
-                    company: job.company,
-                    location: job.location,
-                    salary: job.salary || '',
-                    match: job.match?.toString() || '0',
-                    type: job.type || '',
-                    posted: job.posted || '',
-                    icon: job.icon || getJobIcon(job.title),
-                  },
-                });
-              }}
-            >
-              <View style={styles.cardTop}>
-                <View style={styles.jobHeader}>
-                  <View style={styles.jobIconContainer}>
-                    <Ionicons name={getJobIcon(job.title) as any} size={24} color={COLORS.PRIMARY} />
-                  </View>
-                  <View style={styles.jobInfo}>
-                    <Text style={styles.jobTitle}>{job.title}</Text>
-                    <Text style={styles.jobCompany}>{job.company} • {job.location}</Text>
-                  </View>
-                  <TouchableOpacity
-                    onPress={(e) => {
-                      e.stopPropagation();
-                      handleSaveJob(job.id);
-                    }}
-                    style={styles.bookmarkButton}
-                  >
-                    <Ionicons
-                      name={savedJobs.includes(job.id) ? 'bookmark' : 'bookmark-outline'}
-                      size={24}
-                      color={savedJobs.includes(job.id) ? COLORS.PRIMARY : COLORS.TEXT_SECONDARY}
-                    />
-                  </TouchableOpacity>
-                </View>
+                <TouchableOpacity
+                  key={job.id}
+                  style={styles.jobCard}
+                  onPress={() => {
+                    router.push({
+                      pathname: '/(jobs)/job-detail' as any,
+                      params: {
+                        id: job.id.toString(),
+                        title: job.title,
+                        company: job.company,
+                        location: job.location,
+                        salary: job.salary || '',
+                        match: job.match?.toString() || '0',
+                        type: job.type || '',
+                        posted: job.posted || '',
+                        icon: job.icon || getJobIcon(job.title),
+                      },
+                    });
+                  }}
+                >
+                  <View style={styles.cardTop}>
+                    <View style={styles.jobHeader}>
+                      <View style={styles.jobIconContainer}>
+                        <Ionicons name={getJobIcon(job.title) as any} size={24} color={COLORS.PRIMARY} />
+                      </View>
+                      <View style={styles.jobInfo}>
+                        <Text style={styles.jobTitle}>{job.title}</Text>
+                        <Text style={styles.jobCompany}>{job.company} • {job.location}</Text>
+                      </View>
+                      <TouchableOpacity
+                        onPress={(e) => {
+                          e.stopPropagation();
+                          handleSaveJob(job.id);
+                        }}
+                        style={styles.bookmarkButton}
+                      >
+                        <Ionicons
+                          name={savedJobs.includes(job.id) ? 'bookmark' : 'bookmark-outline'}
+                          size={24}
+                          color={savedJobs.includes(job.id) ? COLORS.PRIMARY : COLORS.TEXT_SECONDARY}
+                        />
+                      </TouchableOpacity>
+                    </View>
 
-                <View style={styles.matchContainer}>
-                  <View style={styles.matchBadge}>
-                    <Ionicons name="sparkles" size={16} color={COLORS.PRIMARY} />
-                    <Text style={styles.matchText}>{job.match}% Match</Text>
+                    <View style={styles.matchContainer}>
+                      <View style={styles.matchBadge}>
+                        <Ionicons name="sparkles" size={16} color={COLORS.PRIMARY} />
+                        <Text style={styles.matchText}>{job.match}% Match</Text>
+                      </View>
+                    </View>
                   </View>
-                </View>
-              </View>
 
-              {job.reason && (
-                <View style={styles.reasonBox}>
-                  <View style={styles.reasonHeader}>
-                    <Ionicons name="checkmark-circle" size={16} color={COLORS.SUCCESS} />
-                    <Text style={styles.reasonText}>{job.reason}</Text>
-                  </View>
-                  {job.skills && job.skills.length > 0 && (
-                    <View style={styles.skillsContainer}>
-                      {job.skills.map((skill, index) => (
-                        <View key={index} style={styles.skillTag}>
-                          <Text style={styles.skillText}>{skill}</Text>
+                  {job.reason && (
+                    <View style={styles.reasonBox}>
+                      <View style={styles.reasonHeader}>
+                        <Ionicons name="checkmark-circle" size={16} color={COLORS.SUCCESS} />
+                        <Text style={styles.reasonText}>{job.reason}</Text>
+                      </View>
+                      {job.skills && job.skills.length > 0 && (
+                        <View style={styles.skillsContainer}>
+                          {job.skills.map((skill, index) => (
+                            <View key={index} style={styles.skillTag}>
+                              <Text style={styles.skillText}>{skill}</Text>
+                            </View>
+                          ))}
                         </View>
-                      ))}
+                      )}
                     </View>
                   )}
-                </View>
-              )}
 
-              <View style={styles.jobDetails}>
-                <View style={styles.detailItem}>
-                  <Ionicons name="cash-outline" size={14} color={COLORS.TEXT_SECONDARY} />
-                  <Text style={styles.detailText}>{job.salary}</Text>
-                </View>
-                <View style={styles.detailItem}>
-                  <Ionicons name="time-outline" size={14} color={COLORS.TEXT_SECONDARY} />
-                  <Text style={styles.detailText}>{job.type}</Text>
-                </View>
-                <View style={styles.detailItem}>
-                  <Ionicons name="calendar-outline" size={14} color={COLORS.TEXT_SECONDARY} />
-                  <Text style={styles.detailText}>{job.posted}</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
+                  <View style={styles.jobDetails}>
+                    <View style={styles.detailItem}>
+                      <Ionicons name="cash-outline" size={14} color={COLORS.TEXT_SECONDARY} />
+                      <Text style={styles.detailText}>{job.salary}</Text>
+                    </View>
+                    <View style={styles.detailItem}>
+                      <Ionicons name="time-outline" size={14} color={COLORS.TEXT_SECONDARY} />
+                      <Text style={styles.detailText}>{job.type}</Text>
+                    </View>
+                    <View style={styles.detailItem}>
+                      <Ionicons name="calendar-outline" size={14} color={COLORS.TEXT_SECONDARY} />
+                      <Text style={styles.detailText}>{job.posted}</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
               ))
             )}
           </>
@@ -270,7 +270,7 @@ export default function SuggestionsScreen() {
         style={styles.chatbotButton}
         onPress={() => router.push('/chatbot' as any)}
       >
-        <Ionicons name="chatbubbles" size={24} color={COLORS.TEXT_PRIMARY} />
+        <Ionicons name="chatbubbles" size={24} color="#ffffff" />
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -574,7 +574,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   retryButtonText: {
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
     fontSize: 16,
     fontWeight: '700',
   },

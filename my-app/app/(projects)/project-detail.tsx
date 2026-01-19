@@ -105,7 +105,7 @@ export default function ProjectDetailScreen() {
               });
             }}
           >
-            <Ionicons name="send" size={20} color={COLORS.TEXT_PRIMARY} />
+            <Ionicons name="send" size={20} color="#ffffff" />
             <Text style={styles.applyButtonText}>Apply for Project</Text>
           </TouchableOpacity>
         </View>
@@ -243,6 +243,6 @@ const styles = StyleSheet.create({
   applyButtonText: {
     fontSize: 16,
     fontWeight: '800',
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
   },
 });

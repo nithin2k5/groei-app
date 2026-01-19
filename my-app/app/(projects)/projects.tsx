@@ -47,7 +47,7 @@ export default function ProjectsScreen() {
       if (searchQuery) filters.search = searchQuery;
       if (filter === 'active') filters.status = 'active';
       if (filter === 'completed') filters.status = 'completed';
-      
+
       const response = await jobsApi.getAll(filters);
       const allProjects = Array.isArray(response) ? response : (response.data || response.projects || []);
       setProjects(allProjects);
@@ -125,11 +125,11 @@ export default function ProjectsScreen() {
         ) : (
           projects.map((project) => (
             <TouchableOpacity
-            key={project.id}
-            style={styles.projectCard}
-            onPress={() => {
-              router.push({
-                pathname: '/(projects)/project-detail' as any,
+              key={project.id}
+              style={styles.projectCard}
+              onPress={() => {
+                router.push({
+                  pathname: '/(projects)/project-detail' as any,
                   params: {
                     id: project.id.toString(),
                     title: project.title,
@@ -140,47 +140,47 @@ export default function ProjectsScreen() {
                     match: project.match?.toString() || '0',
                     status: project.status || 'active',
                   },
-              });
-            }}
-          >
-            <View style={styles.projectHeader}>
-              <View style={styles.projectInfo}>
-                <Text style={styles.projectTitle}>{project.title}</Text>
-                <Text style={styles.projectClient}>{project.client}</Text>
-              </View>
-              <View style={styles.matchBadge}>
-                <Text style={styles.matchText}>{project.match}% Match</Text>
-              </View>
-            </View>
-            <View style={styles.projectDetails}>
-              {project.budget && (
-                <View style={styles.detailItem}>
-                  <Ionicons name="cash-outline" size={16} color={COLORS.TEXT_SECONDARY} />
-                  <Text style={styles.detailText}>{project.budget}</Text>
+                });
+              }}
+            >
+              <View style={styles.projectHeader}>
+                <View style={styles.projectInfo}>
+                  <Text style={styles.projectTitle}>{project.title}</Text>
+                  <Text style={styles.projectClient}>{project.client}</Text>
                 </View>
-              )}
-              {project.duration && (
-                <View style={styles.detailItem}>
-                  <Ionicons name="time-outline" size={16} color={COLORS.TEXT_SECONDARY} />
-                  <Text style={styles.detailText}>{project.duration}</Text>
+                <View style={styles.matchBadge}>
+                  <Text style={styles.matchText}>{project.match}% Match</Text>
                 </View>
-              )}
-            </View>
-            {formatSkills(project.skills).length > 0 && (
-              <View style={styles.skillsContainer}>
-                {formatSkills(project.skills).map((skill, index) => (
-                  <View key={index} style={styles.skillTag}>
-                    <Text style={styles.skillText}>{skill}</Text>
+              </View>
+              <View style={styles.projectDetails}>
+                {project.budget && (
+                  <View style={styles.detailItem}>
+                    <Ionicons name="cash-outline" size={16} color={COLORS.TEXT_SECONDARY} />
+                    <Text style={styles.detailText}>{project.budget}</Text>
                   </View>
-                ))}
+                )}
+                {project.duration && (
+                  <View style={styles.detailItem}>
+                    <Ionicons name="time-outline" size={16} color={COLORS.TEXT_SECONDARY} />
+                    <Text style={styles.detailText}>{project.duration}</Text>
+                  </View>
+                )}
               </View>
-            )}
-            {project.status && (
-              <View style={styles.statusBadge}>
-                <View style={[styles.statusDot, project.status === 'active' && styles.statusDotActive]} />
-                <Text style={styles.statusText}>{project.status.charAt(0).toUpperCase() + project.status.slice(1)}</Text>
-              </View>
-            )}
+              {formatSkills(project.skills).length > 0 && (
+                <View style={styles.skillsContainer}>
+                  {formatSkills(project.skills).map((skill, index) => (
+                    <View key={index} style={styles.skillTag}>
+                      <Text style={styles.skillText}>{skill}</Text>
+                    </View>
+                  ))}
+                </View>
+              )}
+              {project.status && (
+                <View style={styles.statusBadge}>
+                  <View style={[styles.statusDot, project.status === 'active' && styles.statusDotActive]} />
+                  <Text style={styles.statusText}>{project.status.charAt(0).toUpperCase() + project.status.slice(1)}</Text>
+                </View>
+              )}
             </TouchableOpacity>
           ))
         )}
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     color: COLORS.TEXT_SECONDARY,
   },
   filterChipTextActive: {
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
   },
   scrollView: {
     flex: 1,
@@ -391,7 +391,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   retryButtonText: {
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
     fontSize: 16,
     fontWeight: '700',
   },

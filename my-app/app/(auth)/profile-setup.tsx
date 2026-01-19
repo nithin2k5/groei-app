@@ -44,7 +44,7 @@ export default function ProfileSetupScreen() {
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       if (loading) return true;
-      
+
       if (currentStep > 1) {
         setCurrentStep((prev) => prev - 1);
         setTimeout(() => {
@@ -71,7 +71,7 @@ export default function ProfileSetupScreen() {
 
   const handleNext = () => {
     if (loading) return;
-    
+
     if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
       scrollViewRef.current?.scrollTo({ y: 0, animated: true });
@@ -82,7 +82,7 @@ export default function ProfileSetupScreen() {
 
   const handleBack = () => {
     if (loading) return;
-    
+
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
       scrollViewRef.current?.scrollTo({ y: 0, animated: true });
@@ -101,13 +101,13 @@ export default function ProfileSetupScreen() {
 
   const handleSubmit = async () => {
     if (loading) return;
-    
+
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    
+
     setLoading(true);
-    
+
     try {
       if (formData.resumeFile) {
         await resumesApi.upload(
@@ -116,9 +116,9 @@ export default function ProfileSetupScreen() {
           formData.resumeFile.mimeType
         );
       }
-      
+
       signIn();
-      
+
       timeoutRef.current = setTimeout(() => {
         setLoading(false);
         router.replace('/dashboard');
@@ -142,7 +142,7 @@ export default function ProfileSetupScreen() {
       }
 
       const file = result.assets[0];
-      
+
       if (file.size && file.size > 5 * 1024 * 1024) {
         Alert.alert('Error', 'File size must be less than 5MB');
         return;
@@ -602,28 +602,28 @@ export default function ProfileSetupScreen() {
       >
         <View style={styles.header}>
           <View style={styles.headerContent}>
-            <TouchableOpacity 
-              style={styles.backButton} 
-              onPress={handleBack} 
+            <TouchableOpacity
+              style={styles.backButton}
+              onPress={handleBack}
               disabled={loading || currentStep === 1}
             >
-              <Ionicons 
-                name="arrow-back" 
-                size={24} 
-                color={loading || currentStep === 1 ? '#cbd5e0' : COLORS.PRIMARY} 
+              <Ionicons
+                name="arrow-back"
+                size={24}
+                color={loading || currentStep === 1 ? '#cbd5e0' : COLORS.PRIMARY}
               />
             </TouchableOpacity>
-            
+
             <View style={styles.progressContainer}>
               <Text style={styles.progressText}>
                 Step {currentStep} of {steps.length}
               </Text>
               <View style={styles.progressBar}>
-                <View 
+                <View
                   style={[
-                    styles.progressFill, 
+                    styles.progressFill,
                     { width: `${(currentStep / steps.length) * 100}%` }
-                  ]} 
+                  ]}
                 />
               </View>
             </View>
@@ -642,12 +642,12 @@ export default function ProfileSetupScreen() {
                   ]}
                 >
                   {currentStep > step.number ? (
-                    <Ionicons name="checkmark" size={18} color={COLORS.TEXT_PRIMARY} />
+                    <Ionicons name="checkmark" size={18} color="#ffffff" />
                   ) : (
-                    <Ionicons 
-                      name={step.icon as any} 
-                      size={currentStep === step.number ? 18 : 16} 
-                      color={currentStep >= step.number ? '#ffffff' : COLORS.TEXT_SECONDARY} 
+                    <Ionicons
+                      name={step.icon as any}
+                      size={currentStep === step.number ? 18 : 16}
+                      color={currentStep >= step.number ? '#ffffff' : COLORS.TEXT_SECONDARY}
                     />
                   )}
                 </View>
@@ -706,7 +706,7 @@ export default function ProfileSetupScreen() {
                     <Ionicons
                       name={currentStep === 4 ? 'checkmark-circle' : 'arrow-forward'}
                       size={isSmallScreen ? 18 : 20}
-                      color={COLORS.TEXT_PRIMARY}
+                      color="#ffffff"
                     />
                   </>
                 )}
@@ -1116,7 +1116,7 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   nextButtonText: {
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
     fontSize: isSmallScreen ? 15 : 16,
     fontWeight: '800',
     letterSpacing: 0.8,

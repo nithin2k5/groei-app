@@ -138,7 +138,7 @@ export default function SavedJobsScreen() {
                       <Text style={styles.jobTitle}>{job.title || 'Job Title'}</Text>
                       <Text style={styles.jobCompany}>{job.company || ''} • {job.location || ''}</Text>
                     </View>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                       style={styles.unsaveButton}
                       onPress={() => handleUnsave(jobId)}
                     >
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
   exploreButtonText: {
     fontSize: 15,
     fontWeight: '700',
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
   },
   resultsText: {
     fontSize: 14,
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   retryButtonText: {
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
     fontSize: 16,
     fontWeight: '700',
   },

@@ -43,7 +43,7 @@ export default function ResetPasswordScreen() {
       }
       return;
     }
-    
+
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
@@ -377,7 +377,7 @@ const styles = StyleSheet.create({
   submitButtonText: {
     fontSize: 16,
     fontWeight: '700',
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
     letterSpacing: 1,
   },
 });

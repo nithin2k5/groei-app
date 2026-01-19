@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     fontWeight: '700',
-    color: COLORS.TEXT_PRIMARY,
+    color: '#ffffff',
   },
   secondaryButton: {
     backgroundColor: COLORS.SECONDARY,
